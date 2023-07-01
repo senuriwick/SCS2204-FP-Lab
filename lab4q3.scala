@@ -1,22 +1,33 @@
 import scala.io.StdIn
 
 object Main extends App {
-    val names = List("Benny", "Niroshan", "Saman", "Kumara")
-    println(formatNames(names[0], toUpper))
-    //println(formatNames(names[1], formatNames))
-    println(formatNames(names[2], toLower))
-    //println(formatNames())
+    println(formatNames("Benny", toUpper))
+    println(formatNames("Niroshan", toSpecific))
+    println(formatNames("Saman",toLower))
+    println(formatNames("Kumara",toSpecific))
 }
 
 def toUpper(name : String) : String = {
-    name.toUpperCase
+    name.toUpperCase()
 }
 
 def toLower(name : String) : String = {
-    name.toLowerCase
+    name.toLowerCase()
 }
 
-def formatNames(names : List[String], formatter: String => String) : List[String] = {
-    names.map(formatter)
+def formatNames(name : String, formatter: String => String) : String = {
+    formatter(name)
 }
+
+def toSpecific(name : String) : String = {
+        print("Enter an index to format: ")
+        val i = StdIn.readInt()
+        if(i < 0 || i >= name.length()) 
+            return "Out of bound"
+        else {
+            return name.updated(i, if(name(i).isLower) name(i).toUpper else name(i))
+        }
+}
+
+
 
